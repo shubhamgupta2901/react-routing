@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './FullPost.css';
+import styles from './FullPost.module.css';
 
 class FullPost extends Component {
     state = {
@@ -33,11 +33,11 @@ class FullPost extends Component {
         }
         if ( this.state.loadedPost ) {
             post = (
-                <div className="FullPost">
+                <div className={styles.FullPost}>
                     <h1>{this.state.loadedPost.title}</h1>
                     <p>{this.state.loadedPost.body}</p>
-                    <div className="Edit">
-                        <button onClick={this.deletePostHandler} className="Delete">Delete</button>
+                    <div className={styles.Edit}>
+                        <button onClick={this.deletePostHandler} className={styles.Delete}>Delete</button>
                     </div>
                 </div>
 
