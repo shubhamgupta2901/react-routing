@@ -10,6 +10,7 @@ class Posts extends React.Component {
     this.state = {
         posts: [],
         error: true,
+        loading: true,
     }
   }
 
@@ -23,19 +24,19 @@ class Posts extends React.Component {
                     author: 'Max'
                 }
             });
-            this.setState({posts: updatedPosts, error:false});
+            this.setState({posts: updatedPosts, loading: false, error:false});
             // console.log( response );
         } )
         .catch(error => {
             // console.log(error);
-            this.setState({error: true});
+            this.setState({loading: false,error: true});
         });
   }
 
 
 
   render(){
-    let posts = <p style={{textAlign: 'center'}}>Something went wrong!</p>;
+    let posts = <p style={{textAlign: 'center'}}>{this.state.loading ? 'Loading' : 'Something went wrong'}</p>;
     if (!this.state.error) {
         posts = this.state.posts.map(post => {
             return <Post 

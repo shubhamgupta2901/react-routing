@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
+import {Route} from 'react-router-dom';
 import FullPost from './FullPost/FullPost';
 import NewPost from './NewPost/NewPost';
 import styles from './Blog.module.css';
@@ -25,13 +25,10 @@ class Blog extends Component {
                         </ul>
                     </nav>
                 </header>
-                <Posts postSelectedHandler= {this.postSelectedHandler}/>
-                <section>
-                    <FullPost id={this.state.selectedPostId} />
-                </section>
-                <section>
-                    <NewPost />
-                </section>
+                
+                {/* <Route path="/" exact render={()=><Posts postSelectedHandler= {this.postSelectedHandler}/>}/>*/}
+                <Route path="/" exact component={Posts}/>
+                <Route path="/new-post" component={NewPost}/>
             </div>
         );
     }
