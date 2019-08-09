@@ -6,11 +6,7 @@ import styles from './Blog.module.css';
 import Posts from './Posts/Posts';
 class Blog extends Component {
     state = {
-        selectedPostId: null,
-    }
 
-    postSelectedHandler = (id) => {
-        this.setState({selectedPostId: id});
     }
 
     render () {

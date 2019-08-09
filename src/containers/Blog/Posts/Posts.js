@@ -19,6 +19,8 @@ class Posts extends React.Component {
   }
 
   componentDidMount(){
+    console.log(`Posts | props:`);
+    console.log(this.props);
     this._mounted = true;
     axios.get( '/posts' )
         .then( response => {
@@ -45,20 +47,23 @@ class Posts extends React.Component {
       this._mounted = false;
   }
 
+  postSelectedHandler = (id) =>{
+    this.props.history.push({pathname: `/${id}`});
+  }
 
   render(){
     let posts = <p style={{textAlign: 'center'}}>{this.state.loading ? 'Loading' : 'Something went wrong'}</p>;
     if (!this.state.error) {
         posts = this.state.posts.map(post => {
             return (
-                <Link to={`/${post.id}`} key={post.id}>
+                // <Link to={`/${post.id}`} key={post.id}>
                     <Post 
-                         
+                        key={post.id}
                         title={post.title} 
                         author={post.author}
-                        clicked={() => this.props.postSelectedHandler(post.id)} 
+                        clicked={() => this.postSelectedHandler(post.id)} 
                     />
-                </Link>
+                // </Link>
             );
         });
     }
@@ -71,11 +76,11 @@ class Posts extends React.Component {
 }
 
 Posts.propTypes ={
-    postSelectedHandler: PropTypes.func,
+    
 }
 
 Posts.defaultProps ={
-    postSelectedHandler: ()=>{},
+   
 }
 
 export default Posts;
