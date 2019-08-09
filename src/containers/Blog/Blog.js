@@ -44,6 +44,8 @@ class Blog extends Component {
                 {/* <Route path="/" exact render={()=><Posts postSelectedHandler= {this.postSelectedHandler}/>}/>*/}
                 <Route path="/" exact component={Posts}/>
                 <Route path="/new-post" component={NewPost}/>
+                <Route path= "/:id" exact component={FullPost}/>
+                
             </div>
         );
     }

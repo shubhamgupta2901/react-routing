@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import styles from './FullPost.module.css';
+
 
 class FullPost extends Component {
     state = {
         loadedPost: null
     }
 
-    componentDidUpdate () {
-        if ( this.props.id ) {
-            if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id) ) {
-                axios.get( '/posts/' + this.props.id )
-                    .then( response => {
-                        // console.log(response);
-                        this.setState( { loadedPost: response.data } );
-                    } );
-            }
+    componentDidMount(){
+        //Extracting route parameters
+        const {id} = this.props.match.params;  
+        console.log(`FullPost | componentDidMount | this.props: ${id}`);
+        if ( id ) {
+            axios.get( '/posts/' + id )
+                .then( response => {
+                    // console.log(response);
+                    this.setState( { loadedPost: response.data } );
+                } );
         }
+    }
+
+    componentDidUpdate () {
+       
     }
 
     deletePostHandler = () => {
@@ -46,5 +53,15 @@ class FullPost extends Component {
         return post;
     }
 }
+
+FullPost.propTypes = {
+    id: PropTypes.number,
+}
+
+FullPost.defaultProps = {
+    id: 1,
+}
+
+
 
 export default FullPost;
