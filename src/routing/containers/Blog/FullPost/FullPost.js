@@ -12,7 +12,7 @@ class FullPost extends Component {
     componentDidMount(){
         //Extracting route parameters
         const {id} = this.props.match.params;  
-        console.log(`FullPost | componentDidMount | this.props: ${id}`);
+        console.log(`FullPost | componentDidMount | id: ${id}`);
         if ( id ) {
             axios.get( '/posts/' + id )
                 .then( response => {
@@ -27,15 +27,16 @@ class FullPost extends Component {
     }
 
     deletePostHandler = () => {
-        axios.delete('/posts/' + this.props.id)
+        axios.delete('/posts/' + this.props.match.params.id)
             .then(response => {
                 console.log(response);
             });
     }
 
     render () {
+        const {id} = this.props.match.params;
         let post = <p style={{ textAlign: 'center' }}>Please select a Post!</p>;
-        if ( this.props.id ) {
+        if ( id ) {
             post = <p style={{ textAlign: 'center' }}>Loading...!</p>;
         }
         if ( this.state.loadedPost ) {
@@ -55,11 +56,10 @@ class FullPost extends Component {
 }
 
 FullPost.propTypes = {
-    id: PropTypes.number,
+    
 }
 
 FullPost.defaultProps = {
-    id: 1,
 }
 
 

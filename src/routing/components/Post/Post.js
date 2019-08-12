@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types'
 import styles from './Post.module.css';
 
 const post = (props) => (
@@ -10,5 +10,19 @@ const post = (props) => (
         </div>
     </article>
 );
+
+post.propTypes = {
+    clicked : PropTypes.func,
+    title: PropTypes.string,
+    author: PropTypes.string,
+}
+
+post.defaultProps = {
+    clicked : ()=>{},
+    title: '',
+    author: '',
+}
+
+
 
 export default post;

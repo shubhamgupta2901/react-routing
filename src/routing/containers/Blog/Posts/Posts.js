@@ -47,6 +47,9 @@ class Posts extends React.Component {
       this._mounted = false;
   }
 
+  /**
+   * Programmatically changing the route of the single page app. This is a relative route. So whatever is the current url, this will be appended to it.
+   *  */
   postSelectedHandler = (id) =>{
     this.props.history.push({pathname: `/${id}`});
   }
