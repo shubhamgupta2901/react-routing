@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types'
+import {Route} from 'react-router-dom';
 import styles from './Posts.module.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import Post from '../../../components/Post/Post';
+import FullPost from '../FullPost/FullPost';
 
 
 class Posts extends React.Component {
@@ -51,7 +52,8 @@ class Posts extends React.Component {
    * Programmatically changing the route of the single page app. This is a relative route. So whatever is the current url, this will be appended to it.
    *  */
   postSelectedHandler = (id) =>{
-    this.props.history.push({pathname: `/${id}`});
+      console.log("postSelectedHandler| id: " + id);
+      this.props.history.push({pathname: `/posts/${id}`});
   }
 
   render(){
@@ -70,10 +72,30 @@ class Posts extends React.Component {
             );
         });
     }
+
+    /**
+     * Note I am adding a Route here inside a component which is already loaded via routing. This is called nested routing. 
+     * This is something which we can do  in general, We can use a route component wherever we want in our application, 
+     * As long as the component where we are using it is wrapped by BrowserRouter. Here in this case the JSX component returned by App.js is wrapped around BrowserComponent, inside which it renders a Blog Component, This Blog Component renders Posts component, where we are trying to add a Route. Hence this is perfectly fine.
+     * NOTE: If we use the path in Route component as 
+     * <Route path= "/:id" exact component={FullPost}/> 
+     * and not this 
+     * <Route path= "/posts/:id" exact component={FullPost}/>
+     * the code would not work, because the relative paths in nested routing are not resolved to parents route + your component's route as we would like.
+     * Ofcourse, this will be very cumbersome to do, so instead of using FullPost like this, a better way is to get current path dynamically so that this is a DYNAMIC route. This means the path should be dynamically set here, instead of a hardcoded string.
+     * This is where the props.match.url property comes in handy, which stores the url which we loaded thus far.
+     * so we use 
+     * <Route path= {this.props.match.url+"/:id"} exact component={FullPost}/>
+     * 
+     * */
     return (
-        <section className={styles.Posts}>
-            {posts}
-        </section>
+        <div>
+            <section className={styles.Posts}>
+                {posts}
+            </section>
+            <Route path= {this.props.match.url+"/:id"} exact component={FullPost}/>
+        </div>
+        
     );
   }
 }

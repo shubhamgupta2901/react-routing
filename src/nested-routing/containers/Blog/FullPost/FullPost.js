@@ -15,14 +15,27 @@ class FullPost extends Component {
         console.log(`FullPost | componentDidMount | id: ${id}`);
         if ( id ) {
             axios.get( '/posts/' + id )
-                .then( response => {
-                    // console.log(response);
-                    this.setState( { loadedPost: response.data } );
-                } );
+            .then( response => {
+                // console.log(response);
+                this.setState( { loadedPost: response.data } );
+            } );
+            
         }
     }
 
-    componentDidUpdate () {
+    
+    componentDidUpdate (prevProps, prevState) {
+        console.log('FullPost | componentDidUpdate')
+        const id = this.props.match.params.id;
+        const prevId = prevProps.match.params.id;
+        console.log(`id: ${id} | prevId: ${prevId} | id !== prevId: ${id !== prevId}`)
+        if(id!== prevId){
+            axios.get( '/posts/' + id )
+            .then( response => {
+                // console.log(response);
+                this.setState( { loadedPost: response.data } );
+            } );
+        }
        
     }
 
