@@ -21,7 +21,21 @@ class NewPost extends Component {
         axios.post('/posts', data)
             .then(response => {
                 console.log(response);
-                this.setState({submitted: true})
+
+                /**
+                 * By changing the state of the component, we are conditionally redirecting the app to a new route.
+                 * We are saying as soon as submitted is set to true, redirect to a different route. 
+                 * It might same strange to redirect in the render method, but this is how it works.
+                 * However there is one other way. Whenever props are passed to the children of a component which is wrapped inside BrowserRouted, 
+                 * they recieve three different objects in props: match, history and location. 
+                 * While match object contains information about how a <Route path> matched the URL,
+                 * history object allows you to manage and handle the browser history inside your views or components.
+                 * history object has a push method which allows us to push a new page on the History Stack. 
+                 * so pushing a new screen will also lead to the same result as setting state and redirecting on render method.
+                 * 
+                 */
+                //this.setState({submitted: true})
+                this.props.history.push('/posts');
             });
     }
 
