@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './routing/App';
+import App from './nested-routing/App';
 import * as serviceWorker from './serviceWorker';
 import axios from 'axios';
 
